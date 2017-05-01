@@ -1,11 +1,15 @@
 <?php
-	/*
-	*controller to handle the login process
+	/**
+	** controller to handle sign up process
 	*/
 
 	header('Access-Control-Allow-Origin: *');
-	class Login{
-		private $emailId;
+	require_once '../models/UserModel.php';
+
+	class SignUp{
+
+		private $name;
+		private $mail;
 		private $password;
 
 		public function __construct(){//check of the http method is post or not
@@ -15,12 +19,15 @@
 			}
 		}
 
-		//login mode can be user or admin
-		public function loginMethod($loginMode){
-
+		public function signUpMethod(){
+			$this->name = $_POST['name'];
+			$this->mail = $_POST['mail'];
+			$this->password = $_POST['password'];
+			$register = UserModel::registerUser($this->name, $this->password, $this->mail);
+			echo $register;
 		}
 	}
 
-	$callLogin = new Login();
-	$callLogin->loginMethod();
+	$sign = new SignUp();
+	$sign->signUpMethod();
 ?>
